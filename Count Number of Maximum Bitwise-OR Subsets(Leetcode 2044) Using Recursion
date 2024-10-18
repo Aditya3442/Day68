@@ -1,0 +1,20 @@
+class Solution {
+    public static int recur(int length,int[] nums,int curr,int target){
+        if(length==nums.length){
+            if(curr==target)
+                return 1;
+            else
+                return 0;
+        }
+        int pick=recur(length+1,nums,curr|nums[length],target);
+        int noPick=recur(length+1,nums,curr,target);
+        return pick+noPick;
+    }
+    public int countMaxOrSubsets(int[] nums) {
+        int target=0;
+        for(int i:nums){
+            target=target|i;
+        }
+        return recur(0,nums,0,target);
+    }
+}
