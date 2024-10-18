@@ -1,0 +1,23 @@
+class Solution {
+    public static int recur(int length,int[] nums,int curr,int target,Integer[][] dp){
+        if(length==nums.length){
+            if(curr==target)
+                return 1;
+            else
+                return 0;
+        }
+        if(dp[length][curr]!=null)
+            return dp[length][curr];
+        int pick=recur(length+1,nums,curr|nums[length],target,dp);
+        int noPick=recur(length+1,nums,curr,target,dp);
+        return dp[length][curr]=pick+noPick;
+    }
+    public int countMaxOrSubsets(int[] nums) {
+        int target=0;
+        for(int i:nums){
+            target=target|i;
+        }
+        Integer dp[][]=new Integer[nums.length][target+1];
+        return recur(0,nums,0,target,dp);
+    }
+}
